@@ -5,9 +5,10 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
 import org.apache.flink.runtime.minicluster.MiniCluster;
 import org.apache.flink.runtime.minicluster.MiniClusterConfiguration;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
-public class EmbeddedFlinkJob {
+public class LowAmountsFilterJob{
     public static void main(String[] args) throws Exception {
         Configuration config = new Configuration();
         config.setInteger(RestOptions.PORT, 8081); // Port du Dashboard Web si besoin
@@ -28,9 +29,9 @@ public class EmbeddedFlinkJob {
             config
         );
 
-        env.fromElements(1, 2, 3, 4, 5)
-            .map(x -> x * 2)
-            .print();
+        DataStream<Double> txs = env.fromElements(50.0, 120.0, 30.0, 250.0);
+        DataStream<Double> filteredTxs = txs.filter(tx -> tx > 100.0);
+        filteredTxs.print();
 
         JobExecutionResult result = env.execute("Job en mode embedded");
         System.out.println("Job execution completed with result: " + result.toString());
