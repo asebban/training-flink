@@ -30,12 +30,12 @@ public class DurationJob {
             config
         );
 
-        DataStream<Tuple2<String, Double>> txs = env.fromElements(Tuple2.of("card1", 100.0), Tuple2.of("card1", 200.0), Tuple2.of("card2", 50.0));
-        DataStream<Tuple2<String, Double>> txsReduced = txs
+        DataStream<Tuple2<String, Integer>> durations = env.fromElements(Tuple2.of("user1", 10), Tuple2.of("user2", 5), Tuple2.of("user1", 7));
+        DataStream<Tuple2<String, Integer>> durationsReduced = durations
             .keyBy(t -> t.f0)
             .reduce((t1, t2) -> Tuple2.of(t1.f0, t1.f1 + t2.f1));
 
-        txsReduced.print();
+        durationsReduced.print();
 
         JobExecutionResult result = env.execute("Job en mode embedded");
         System.out.println("Job execution completed with result: " + result.toString());
