@@ -13,6 +13,7 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTime
 import org.apache.flink.streaming.api.windowing.time.Time;
 
 public class CountTransactions {
+    @SuppressWarnings("deprecation")
     public static void main(String[] args) throws Exception {
         Configuration config = new Configuration();
         config.setInteger(RestOptions.PORT, 8081); // Port du Dashboard Web si besoin
@@ -33,12 +34,7 @@ public class CountTransactions {
             config
         );
 
-        DataStream<String> transactions = env.fromElements(
-            "transaction1",
-            "transaction2",
-            "transaction3",
-            "transaction4",
-            "transaction5");
+        DataStream<String> transactions = env.addSource(new GenericSource());
 
         transactions
         .map(tx -> Tuple2.of("key", 1))
