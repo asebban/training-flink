@@ -1,0 +1,20 @@
+    {
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "EventTimeWindowJob",
+      "request": "launch",
+      "mainClass": "ma.medtech.training.flink.EventTimeWindowJob",
+      "projectName": "training-project"
+    },
+    {
+      "type": "java",
+      "name": "Launch Flink Job",
+      "request": "launch",
+      "mainClass": "ma.medtech.training.flink.EventTimeWindowJob",
+      "projectName": "Event Time Window",
+      "vmArgs": "--add-opens java.base/java.util=ALL-UNNAMED"
+    }
+  ]
+}
