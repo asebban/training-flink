@@ -1,13 +1,19 @@
 package ma.medtech.training.flink;
 
 import org.apache.flink.api.common.JobExecutionResult;
+import org.apache.flink.api.common.typeinfo.Types;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
 import org.apache.flink.runtime.minicluster.MiniCluster;
 import org.apache.flink.runtime.minicluster.MiniClusterConfiguration;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
+import org.apache.flink.streaming.api.windowing.time.Time;
 
 public class EmbeddedFlinkJob {
+    @SuppressWarnings("deprecation")
     public static void main(String[] args) throws Exception {
         Configuration config = new Configuration();
         config.setInteger(RestOptions.PORT, 8081); // Port du Dashboard Web si besoin
@@ -28,11 +34,17 @@ public class EmbeddedFlinkJob {
             config
         );
 
-        env.fromElements(1, 2, 3, 4, 5)
-            .map(x -> x * 2)
+        DataStream<String> stream = env.addSource(new GenericSource());
+
+        stream.map(t -> Tuple2.of("key", 1))
+            .returns(Types.TUPLE(Types.STRING, Types.INT))
+            .keyBy(e -> e.f0)
+            .window(TumblingProcessingTimeWindows.of(Time.seconds(10)))
+            .sum(1)
             .print();
 
         JobExecutionResult result = env.execute("Job en mode embedded");
+        Thread.sleep(5000); // Attendre un peu pour voir les résultats
         System.out.println("Job execution completed with result: " + result.toString());
 
         miniCluster.close();
