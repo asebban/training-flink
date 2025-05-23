@@ -10,8 +10,8 @@ public class SimpleFlinkJob {
 
         env
         .fromElements("alice", "bob", "alice", "alice", "bob", "charlie")
-        .keyBy(userId -> userId)
-        .process(new CountPerUser())
+        .keyBy(userId -> "one")
+        .process(new ListOfUsers())
         .print();
 
         env.execute("User Event Counter");
