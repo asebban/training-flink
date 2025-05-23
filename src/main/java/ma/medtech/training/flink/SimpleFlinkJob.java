@@ -8,11 +8,12 @@ public class SimpleFlinkJob {
         // Create the execution environment
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        // Print a simple message to indicate the job is running
-        env.fromElements("Hello, Flink!")
-           .print();
+        env
+        .fromElements("alice", "bob", "alice", "alice", "bob", "charlie")
+        .keyBy(userId -> userId)
+        .process(new CountPerUser())
+        .print();
 
-        // Execute the job
-        env.execute("Simple Flink Job");
+        env.execute("User Event Counter");
     }
 }
