@@ -34,6 +34,7 @@ public class EmbeddedFlinkJob {
             .returns(new TypeHint<Tuple2<String, Long>>() {})
             .keyBy(value -> value.f0)
             .window(TumblingEventTimeWindows.of(Time.seconds(10)))
+            .allowedLateness(Time.seconds(6))
             .sum(1)
             .map(windowResult -> "User: " + windowResult.f0 + " - Clicks: " + windowResult.f1)
             .print();
