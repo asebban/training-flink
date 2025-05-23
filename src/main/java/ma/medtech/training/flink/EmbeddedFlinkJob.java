@@ -9,6 +9,8 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class EmbeddedFlinkJob {
     public static void main(String[] args) throws Exception {
+        // env.getExecutionEnvironment() est suffisant pour créer un environnement de Stream
+        // Nous utilisons ici un cluster embedded pour simuler un cluster Flink
         Configuration config = new Configuration();
         config.setInteger(RestOptions.PORT, 8081); // Port du Dashboard Web si besoin
 
