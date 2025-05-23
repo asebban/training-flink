@@ -10,11 +10,12 @@ public class UserClickSource implements SourceFunction<UserClick> {
     @Override
     public void run(SourceContext<UserClick> ctx) throws Exception {
         // simulate out-of-order events
-        ctx.collect(new UserClick("alice", 1_000L));     // 1s
-        ctx.collect(new UserClick("bob", 3_000L));       // 3s
-        ctx.collect(new UserClick("alice", 8_000L));     // 8s
-        ctx.collect(new UserClick("bob", 9_000L));      // 10s
-        ctx.collect(new UserClick("alice", 6_000L));     // late
+        ctx.collect(new UserClick("alice", 1_000L));     // 1s -> first window
+        ctx.collect(new UserClick("bob", 3_000L));       // 3s -> first window
+        ctx.collect(new UserClick("alice", 8_000L));     // 8s -> first window
+        ctx.collect(new UserClick("bob", 10_000L));      // 10s -> second window
+        ctx.collect(new UserClick("alice", 13_000L));     // 13s -> second window
+        ctx.collect(new UserClick("bob", 15_000L));      // 15s -> second window
 
         // give Flink time to emit watermarks
         Thread.sleep(1000);

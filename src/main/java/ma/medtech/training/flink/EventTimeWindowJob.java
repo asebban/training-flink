@@ -23,7 +23,7 @@ public class EventTimeWindowJob {
         // 2. Watermark Strategy: Allow 5 seconds of lateness
         WatermarkStrategy<UserClick> watermarkStrategy = WatermarkStrategy
             .<UserClick>forBoundedOutOfOrderness(Duration.ofSeconds(5))
-            .withTimestampAssigner((event, recordTs) -> event.getTimestamp());
+            .withTimestampAssigner((event, ingestionTime) -> event.getTimestamp());
 
         // 3. Apply timestamps and watermarks
         DataStream<UserClick> withWatermarks = input.assignTimestampsAndWatermarks(watermarkStrategy);
