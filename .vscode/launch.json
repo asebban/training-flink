@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Launch Program",
+      "mainClass": "ma.medtech.training.flink.TransactionCountJob",
+      "vmArgs": "--add-opens java.base/java.util=ALL-UNNAMED"
+    }
+  ]
+}
