@@ -37,12 +37,7 @@ public class SimpleFlinkJob {
 
         // 3. Pattern : 3 retraits consécutifs (pas forcément > 1000 ici)
         Pattern<Withdrawal, ?> pattern = Pattern.<Withdrawal>begin("start")
-                .where(new SimpleCondition<Withdrawal>() {
-                    @Override
-                    public boolean filter(Withdrawal withdrawal) {
-                        return withdrawal.amount() > 0;
-                    }
-                })
+                .where(SimpleCondition.of(w -> w.amount() > 0)) // Condition de base, on peut affiner plus tard
                 .times(3)
                 .within(Time.minutes(1));
 
