@@ -12,7 +12,8 @@ public class EmbeddedFlinkJob {
         // env.getExecutionEnvironment() est suffisant pour créer un environnement de Stream
         // Nous utilisons ici un cluster embedded pour simuler un cluster Flink
         Configuration config = new Configuration();
-        config.setInteger(RestOptions.PORT, 8081); // Port du Dashboard Web si besoin
+        config.setString(RestOptions.BIND_PORT, "8081"); // Port Web UI
+        config.setString(RestOptions.ADDRESS, "localhost");
 
         MiniClusterConfiguration miniClusterConfig = new MiniClusterConfiguration.Builder()
             .setNumTaskManagers(1)
