@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Application-specific logging -->
+    <logger name="ma.medtech.training.flink" level="info" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- Suppress logs from other packages -->
+    <logger name="org.apache.flink" level="error" />
+    <logger name="org.apache.kafka" level="error" />
+
+    <root level="error">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
