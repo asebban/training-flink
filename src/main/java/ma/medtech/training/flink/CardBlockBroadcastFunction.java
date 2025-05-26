@@ -22,7 +22,7 @@ public class CardBlockBroadcastFunction extends BroadcastProcessFunction<Transac
         String status = state.get(txn.getCardNumber());
 
         if ("BLOCKED".equals(status)) {
-            out.collect("FRAUDE : transaction bloquée → " + txn);
+            out.collect("FRAUDE : transaction bloquée -> " + txn);
         } else {
             out.collect("Transaction OK : " + txn);
         }
@@ -35,6 +35,6 @@ public class CardBlockBroadcastFunction extends BroadcastProcessFunction<Transac
         BroadcastState<String, String> state = ctx.getBroadcastState(descriptor);
         state.put(update.getCardNumber(), update.getStatus());
 
-        out.collect("Mise à jour : " + update.getCardNumber() + " → " + update.getStatus());
+        out.collect("Mise à jour : " + update.getCardNumber() + " -> " + update.getStatus());
     }
 }
