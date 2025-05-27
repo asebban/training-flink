@@ -16,7 +16,7 @@ public class UserClickSource implements SourceFunction<UserClick> {
         ctx.collect(new UserClick("bob", 10_000L));      // 10s -> second window
         ctx.collect(new UserClick("alice", 13_000L));     // 13s -> second window
         ctx.collect(new UserClick("bob", 15_000L));      // 15s -> second window
-        ctx.collect(new UserClick("bob", 7_000L));      // 15s -> second window
+        ctx.collect(new UserClick("bob", 7_000L));      // 7s -> first window
 
         // give Flink time to emit watermarks
         Thread.sleep(1000);
