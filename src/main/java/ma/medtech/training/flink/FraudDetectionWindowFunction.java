@@ -41,7 +41,7 @@ public class FraudDetectionWindowFunction extends ProcessWindowFunction<Transact
 
         if (amount >= this.maxAmount) {
             // Send an alert or take action
-            out.collect("Fraud detected for card " + cardNumber + " with amount " + amount + "greater than " + this.maxAmount);
+            out.collect("***** Fraud detected for card " + cardNumber + " with amount " + amount + "greater than " + this.maxAmount + "******");
         } else {
             // No fraud detected
             out.collect("No fraud detected for card " + cardNumber + " with amount " + amount);
