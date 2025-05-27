@@ -9,8 +9,9 @@ public class GenericSource implements SourceFunction<String> {
 
     @Override
     public void run(SourceContext<String> ctx) throws Exception {
-        for (int i = 1; i <= 5 && running; i++) {
-            ctx.collect("user-" + i);       // émet la chaîne
+        int i = 0; // compteur pour les utilisateurs
+        while (running) {
+            ctx.collect("user-" + i++);       // émet la chaîne
             Thread.sleep(1_000);           // attend 1 s
         }
     }

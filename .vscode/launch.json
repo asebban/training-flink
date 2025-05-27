@@ -1,11 +1,18 @@
 {
     "configurations": [
-    {
-        "type": "java",
-        "name": "Launch Java Program",
-        "request": "launch",
-        "mainClass": "ma.medtech.training.flink.SimpleFlinkJob",
-        "vmArgs": "--add-opens java.base/java.util=ALL-UNNAMED"
-    }
+        {
+            "type": "java",
+            "name": "EmbeddedFlinkWithWebUI",
+            "request": "launch",
+            "mainClass": "ma.medtech.training.flink.EmbeddedFlinkWithWebUI",
+            "projectName": "training-project"
+        },
+        {
+            "type": "java",
+            "name": "Launch Java Program",
+            "request": "launch",
+            "mainClass": "ma.medtech.training.flink.SimpleFlinkJob",
+            "vmArgs": "--add-opens java.base/java.util=ALL-UNNAMED"
+        }
     ]
 }
