@@ -11,7 +11,7 @@ public class SimpleFlinkJob {
 
         // Print a simple message to indicate the job is running
         env.addSource(new InactivitySimulationSource())
-            .keyBy(event -> "all") // Key by the event itself (e.g., user ID)
+            .keyBy(event -> event) // Key by the event itself (e.g., user ID)
             .process(new InactivityTimer()) // Process the events to detect inactivity
             .name("Inactivity Timer")
             .print();
