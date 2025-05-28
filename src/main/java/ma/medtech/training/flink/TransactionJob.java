@@ -35,6 +35,8 @@ public class TransactionJob {
             config
         );
 
+        env.setParallelism(1);
+
         DataStream<Transaction> transactions = env
             .addSource(new TransactionSource())
             .name("Transaction Source")
