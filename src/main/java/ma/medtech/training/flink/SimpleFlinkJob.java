@@ -49,7 +49,7 @@ public class SimpleFlinkJob {
         DataStream<Transaction> lateStream = processed.getSideOutput(lateTag);
 
         // Print the processed results
-        processed.print();
+        processed.print("Processed Transactions");
         lateStream.print("Late Transactions");
         // Execute the job
         env.execute("Simple Flink Job");
