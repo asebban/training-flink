@@ -8,11 +8,14 @@ public class CardStatusSource implements SourceFunction<CardStatus> {
 
     @Override
     public void run(SourceContext<CardStatus> ctx) throws Exception {
+        Thread.sleep(7000);
         ctx.collect(new CardStatus("CARD-1111", "BLOCKED"));
         Thread.sleep(5000);
         ctx.collect(new CardStatus("CARD-1111", "ACTIVE"));
         Thread.sleep(5000);
         ctx.collect(new CardStatus("CARD-2222", "BLOCKED"));
+        Thread.sleep(10_000);
+        ctx.collect(new CardStatus("CARD-2222", "ACTIVE"));
     }
 
     @Override

@@ -15,7 +15,7 @@ public class TransactionSource implements SourceFunction<Transaction> {
     @Override
     public void run(SourceContext<Transaction> ctx) throws Exception {
 
-        int ntrx = 10;
+        int ntrx = 100;
         while (running && ntrx-- > 0) {
             String card = cards[random.nextInt(cards.length)];
             double amount = 50 + random.nextDouble() * 950; // Montants entre 50 et 1000
