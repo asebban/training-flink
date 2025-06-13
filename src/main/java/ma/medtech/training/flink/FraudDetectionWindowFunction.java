@@ -53,9 +53,6 @@ public class FraudDetectionWindowFunction extends ProcessWindowFunction<Transact
             System.out.println("No transactions found for card " + cardNumber);
         }
         
-        Double totalAmount = state.value();
-        state.update(totalAmount);
-
         long start = ctx.window().getStart();
         long end = ctx.window().getEnd();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss").withZone(ZoneId.systemDefault());
@@ -64,7 +61,7 @@ public class FraudDetectionWindowFunction extends ProcessWindowFunction<Transact
 
         if (amount >= this.maxAmount) {
             // Send an alert or take action
-            out.collect("Window -> " + startFormatted + "-" + endFormatted + " : ***** Fraud detected for card " + cardNumber + " with amount " + amount + "greater than " + this.maxAmount + "******");
+            out.collect("Window -> " + startFormatted + "-" + endFormatted + " : ***** Fraud detected for card " + cardNumber + " with amount " + amount + " greater than " + this.maxAmount + "******");
         } else {
             // No fraud detected
             out.collect("Window -> " + startFormatted + "-" + endFormatted + " : No fraud detected for card " + cardNumber + " with amount " + amount);

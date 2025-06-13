@@ -50,7 +50,7 @@ public class TransactionJob {
             .keyBy(Transaction::getCardNumber)
             .window(TumblingEventTimeWindows.of(Time.seconds(10)))
             .trigger(CountTrigger.of(1))
-            .process(new FraudDetectionWindowFunction(1000.0))
+            .process(new FraudDetectionWindowFunction(3500.0))
             .print();
 
         JobExecutionResult result = env.execute("Job en mode embedded");
